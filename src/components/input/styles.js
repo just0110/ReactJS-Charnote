@@ -20,7 +20,7 @@ export const Label = styled.label`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   line-height: 1.14;
   color: ${({ theme, error }) =>
-    error ? theme.colors.red : theme.colors.gray};
+    error ? theme.colors.red : theme.colors.black};
   cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
   &:after {
     content: "*";

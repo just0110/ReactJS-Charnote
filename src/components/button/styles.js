@@ -4,7 +4,7 @@ export const ButtonWrapper = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: auto;
+  width: ${({ width }) => (width ? `${width}em` : "auto")};
   border-radius: 2em;
   cursor: pointer;
   outline: 0;
@@ -19,7 +19,7 @@ export const ButtonWrapper = styled.button`
   padding: 9px 30px;
   white-space: nowrap;
   font-size: ${({ theme }) => theme.fontSizes.sm};
-  box-shadow: 2px 5px 10px -6px ${({ theme }) => theme.colors.main};
+  box-shadow: 2px 5px 10px -6px ${({ theme }) => theme.colors.secondaryDarkA};
   line-height: 1;
   flex-direction: row;
   user-select: none;

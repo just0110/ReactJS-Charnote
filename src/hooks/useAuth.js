@@ -1,11 +1,11 @@
 import { useEffect, useState, useCallback } from "react";
 import firebase from "firebase";
 
-/** @Param method: enum = signin, signup
+/** @Param method: enum = signin, signup, signout
  * @Param data: object = { email, password }
  **/
 export default method => {
-  const [error, setError] = useState(null);
+  const [isError, setError] = useState(null);
   const [response, setResponse] = useState(null);
   const [isLoading, setLoading] = useState(false);
   const [data, setOptions] = useState({});
@@ -35,11 +35,12 @@ export default method => {
               phone: res.user.phoneNumber,
               photo: res.user.photoURL
             };
-
+            console.log("RESPONSE", user);
             setResponse(user);
             setLoading(false);
           })
           .catch(err => {
+            console.log("ERROR", err);
             setError(err.message);
             setLoading(false);
           });
@@ -70,5 +71,5 @@ export default method => {
     }
   }, [isLoading, method, data]);
 
-  return [{ isLoading, response, error }, doFetch];
+  return [{ isLoading, response, isError }, doFetch];
 };

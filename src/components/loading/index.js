@@ -7,7 +7,7 @@ import { Overlay } from "./styles";
 import "./styles.css";
 
 // todo refactor to js styles + separate overlay feature
-export const Loading = ({ isVisible, overlay }) =>
+const Loading = ({ isVisible, overlay }) =>
   isVisible ? (
     <Overlay>
       <div className="loader">

@@ -11,7 +11,8 @@ const LinkButton = ({
   border,
   color,
   onClick,
-  disabled
+  disabled,
+  children
 }) => {
   return (
     <Wrapper
@@ -24,7 +25,7 @@ const LinkButton = ({
     >
       <Plus plus={plus}>+</Plus>
 
-      {title}
+      {title || children}
     </Wrapper>
   );
 };

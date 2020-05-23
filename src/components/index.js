@@ -1,5 +1,10 @@
 export * from "./styles";
 export { default as Input } from "./input";
+export { default as Header } from "./header";
 export { default as Button } from "./button";
+export { default as SideBar } from "./sidebar";
 export { default as Loading } from "./loading";
 export { default as Locales } from "./locales";
+export { default as CheckBox } from "./checkBox";
+export { default as Selector } from "./selector";
+export { default as LinkButton } from "./linkButton";

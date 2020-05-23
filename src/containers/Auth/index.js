@@ -1,9 +1,8 @@
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import { endLoading, startLoading, changeLanguage } from "../../redux/actions";
-
 import Auth from "./Auth";
+import { endLoading, startLoading, changeLanguage } from "../../redux/actions";
 
 const select = createStructuredSelector({});
 

@@ -16,6 +16,16 @@ export const localesUA = {
     TITLE: "Почни з себе!"
   },
 
+  HOME: {
+    ADD: "Додати",
+    ADD_UNIT: "Додати людину",
+    ID: "Номер",
+    FIRST_NAME: "Ім'я",
+    LAST_NAME: "Прізвище",
+    ROLE: "Роль",
+    VOLUNTEER: "Волонтер"
+  },
+
   LOREM_IPSUM:
     "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
 };
@@ -36,6 +46,16 @@ export const localesRU = {
 
   HEADER: {
     TITLE: "Начни с себя!"
+  },
+
+  HOME: {
+    ADD: "Добавить",
+    ADD_UNIT: "Добавить человека",
+    ID: "Номер",
+    FIRST_NAME: "Имя",
+    LAST_NAME: "Фамилия",
+    ROLE: "Роль",
+    VOLUNTEER: "Волонтёр"
   },
 
   LOREM_IPSUM:

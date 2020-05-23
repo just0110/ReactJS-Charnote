@@ -1,23 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { injectIntl } from "react-intl";
-import { Input, Button, Title } from "../../components";
+import { Redirect } from "react-router-dom";
 
+import { Input, Button, Title, Subhead, LinkButton } from "../../components";
 import { Container, Image, Form, Buttons, ChangeLang } from "./styles";
-import LinkButton from "../../components/linkButton";
 
 import { useAuth } from "../../hooks";
 
-const Auth = ({ intl, changeLanguage }) => {
+// todo beautify errors
+
+const Auth = ({ intl, startLoading, endLoading, changeLanguage }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [language, setLanguage] = useState("ua");
   const [isSignIn, setIsSignIn] = useState(true);
   const [isValidate, setValidate] = useState(false);
+  const [error, setError] = useState(false);
+  const [isSuccess, setSuccess] = useState(false);
 
   const method = isSignIn ? "signin" : "signup";
-  const [{ isLoading, response, error }, doFetch] = useAuth(method);
+  const [{ response, isError }, doFetch] = useAuth(method);
 
-  // bad code, not reusable, need to provide selector
+  useEffect(() => {
+    if (email.length && password.length) {
+      setValidate(true);
+    } else {
+      setValidate(false);
+    }
+  }, [email, password, setValidate]);
+
+  // todo make form submit come true :D
+  const handleSubmit = () => {
+    startLoading();
+    doFetch({ email, password });
+  };
+
+  // todo make selector with languages
   const changeLang = () => {
     if (language === "ua") {
       setLanguage("ru");
@@ -29,12 +47,30 @@ const Auth = ({ intl, changeLanguage }) => {
   };
 
   useEffect(() => {
-    if (email.length && password.length) {
-      setValidate(true);
-    } else {
-      setValidate(false);
+    if (!response) {
+      return;
     }
-  }, [email, password, setValidate]);
+    endLoading();
+    setSuccess(true);
+    // setCurrUserState(state => ({
+    //   ...state,
+    //   isLoggedIn: true,
+    //   isLoading: false,
+    //   currentUser: response,
+    // }))
+  }, [response]);
+
+  useEffect(() => {
+    if (!isError) {
+      return;
+    }
+    endLoading();
+    setError(isError);
+  }, [isError]);
+
+  if (isSuccess) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Container>
@@ -54,6 +90,7 @@ const Auth = ({ intl, changeLanguage }) => {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
+        {isError && <Subhead color="red">{error}</Subhead>}
         <Buttons>
           <LinkButton
             title={intl.formatMessage({
@@ -63,6 +100,7 @@ const Auth = ({ intl, changeLanguage }) => {
           />
           <Button
             disabled={!isValidate}
+            onClick={() => handleSubmit()}
             title={intl.formatMessage({
               id: `AUTH.${isSignIn ? "SIGN_IN" : "SIGN_UP"}`
             })}
