@@ -1,0 +1,83 @@
+import React, { useEffect, useState } from "react";
+import { injectIntl } from "react-intl";
+import { Input, Button, Title } from "../../components";
+
+import { Container, Image, Form, Buttons, ChangeLang } from "./styles";
+import LinkButton from "../../components/linkButton";
+
+import { useAuth } from "../../hooks";
+
+const Auth = ({ intl, changeLanguage }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [language, setLanguage] = useState("ua");
+  const [isSignIn, setIsSignIn] = useState(true);
+  const [isValidate, setValidate] = useState(false);
+
+  const method = isSignIn ? "signin" : "signup";
+  const [{ isLoading, response, error }, doFetch] = useAuth(method);
+
+  // bad code, not reusable, need to provide selector
+  const changeLang = () => {
+    if (language === "ua") {
+      setLanguage("ru");
+      changeLanguage("ru");
+    } else {
+      setLanguage("ua");
+      changeLanguage("ua");
+    }
+  };
+
+  useEffect(() => {
+    if (email.length && password.length) {
+      setValidate(true);
+    } else {
+      setValidate(false);
+    }
+  }, [email, password, setValidate]);
+
+  return (
+    <Container>
+      <Form>
+        <Title>
+          {intl.formatMessage({
+            id: `AUTH.${isSignIn ? "SIGN_IN" : "SIGN_UP"}`
+          })}
+        </Title>
+        <Input
+          label={intl.formatMessage({ id: "AUTH.EMAIL" })}
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+        <Input
+          label={intl.formatMessage({ id: "AUTH.PASSWORD" })}
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+        <Buttons>
+          <LinkButton
+            title={intl.formatMessage({
+              id: `AUTH.${isSignIn ? "SIGN_IN_TIP" : "SIGN_UP_TIP"}`
+            })}
+            onClick={() => setIsSignIn(!isSignIn)}
+          />
+          <Button
+            disabled={!isValidate}
+            title={intl.formatMessage({
+              id: `AUTH.${isSignIn ? "SIGN_IN" : "SIGN_UP"}`
+            })}
+          />
+        </Buttons>
+        <ChangeLang>
+          <LinkButton
+            title={intl.formatMessage({ id: "AUTH.CHANGE_LANG" })}
+            onClick={changeLang}
+          />
+        </ChangeLang>
+      </Form>
+      <Image />
+    </Container>
+  );
+};
+
+export default injectIntl(Auth);

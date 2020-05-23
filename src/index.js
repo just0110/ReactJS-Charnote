@@ -1,17 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import { render } from "react-dom";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+import "./containers/App/index.css";
+import { Theme } from "./constants";
+import "./containers/App/normalize.css";
+import configureStore from "./redux/store";
+import { Locales, Loading } from "./components";
+import { App, unregister } from "./containers/App";
+import { initializeFirebase } from "./configs/firebase";
+
+initializeFirebase();
+const store = configureStore();
+const target = document.querySelector("#root");
+
+render(
+  <Provider store={store}>
+    <Theme>
+      <Locales>
+        <BrowserRouter>
+          <>
+            <App />
+            <Loading overlay={true} />
+          </>
+        </BrowserRouter>
+      </Locales>
+    </Theme>
+  </Provider>,
+  target
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+unregister();
