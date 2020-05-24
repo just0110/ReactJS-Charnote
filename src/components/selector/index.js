@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  node,
+  any,
   bool,
   func,
   shape,
@@ -27,7 +27,7 @@ const Selector = ({
   defaultValue
 }) => {
   return (
-    <SelectWrapper label={!!label}>
+    <SelectWrapper label={label}>
       {label ? (
         <LabelWrapper>
           <Label required={required} disabled={disabled}>
@@ -51,19 +51,18 @@ const Selector = ({
 };
 
 Selector.propTypes = {
-  label: node,
   required: bool,
   disabled: bool,
   options: arrayOf(
     shape({
-      value: string,
+      value: any,
       label: string
     })
   ),
   theme: object.isRequired,
   placeholder: string,
   value: shape({
-    value: string,
+    value: any,
     label: string
   }),
   onChange: func,

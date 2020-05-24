@@ -14,6 +14,7 @@ const Input = ({
   label,
   value,
   error,
+  width,
   onChange,
   disabled,
   required,
@@ -21,7 +22,7 @@ const Input = ({
   ...props
 }) => {
   return (
-    <Container label={label}>
+    <Container width={width} label={label}>
       {label ? (
         <LabelWrapper>
           <Label error={!!error} required={required} disabled={disabled}>

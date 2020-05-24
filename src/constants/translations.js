@@ -18,12 +18,27 @@ export const localesUA = {
 
   HOME: {
     ADD: "Додати",
-    ADD_UNIT: "Додати людину",
-    ID: "Номер",
+    MAIN_INFO: "Основна інформація",
+    INDEX: "Номер",
     FIRST_NAME: "Ім'я",
     LAST_NAME: "Прізвище",
     ROLE: "Роль",
-    VOLUNTEER: "Волонтер"
+    VOLUNTEER: "Волонтер",
+    DELETE: "Видалити",
+    DELETE_UNIT_DESC: "Ви дійсно хочете видалити?",
+    SEARCH_NAME: "Пошук за ім'ям"
+  },
+
+  COMMON: {
+    OK: "Добре",
+    CANCEL: "Відміна",
+    SEARCH: "Пошук",
+    CLOSE: "Закрити",
+    NEXT: "Наступна",
+    PREV: "Попередня",
+    SAVE: "Зберегти",
+    YES: "Так",
+    NO: "Ні"
   },
 
   LOREM_IPSUM:
@@ -50,12 +65,27 @@ export const localesRU = {
 
   HOME: {
     ADD: "Добавить",
-    ADD_UNIT: "Добавить человека",
-    ID: "Номер",
+    MAIN_INFO: "Основаня информация",
+    INDEX: "Номер",
     FIRST_NAME: "Имя",
     LAST_NAME: "Фамилия",
     ROLE: "Роль",
-    VOLUNTEER: "Волонтёр"
+    VOLUNTEER: "Волонтёр",
+    DELETE: "Удалить",
+    DELETE_UNIT_DESC: "Вы действительно хотите удалить?",
+    SEARCH_NAME: "Поиск по имени"
+  },
+
+  COMMON: {
+    OK: "Хорошо",
+    CANCEL: "Отмена",
+    SEARCH: "Поиск",
+    CLOSE: "Закрыть",
+    NEXT: "Следующая",
+    PREV: "Предыдущая",
+    SAVE: "Сохранить",
+    YES: "Да",
+    NO: "Нет"
   },
 
   LOREM_IPSUM:

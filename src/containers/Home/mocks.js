@@ -19,9 +19,9 @@ export const generateUnits = () => {
 };
 
 export const roles = [
-  { value: 0, label: "ADMIN" },
-  { value: 1, label: "USER" },
-  { value: 2, label: "VIEWER" },
-  { value: 3, label: "MODERATOR" },
-  { value: 4, label: "HELPER" }
+  { value: "admin", label: "ADMIN" },
+  { value: "user", label: "USER" },
+  { value: "viewer", label: "VIEWER" },
+  { value: "moderator", label: "MODERATOR" },
+  { value: "helper", label: "HELPER" }
 ];

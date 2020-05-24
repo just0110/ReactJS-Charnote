@@ -1,34 +1,38 @@
 import React, { useState } from "react";
 import { injectIntl } from "react-intl";
 
-import { Body, Content, Container } from "./styles";
-import { Header, SideBar, LinkButton } from "../../components";
 import UnitForm from "./UnitForm";
 import UnitTable from "./UnitTable";
 
+import { Body, Content, Container } from "./styles";
+import { UnitsProvider } from "../../contexts/units";
+import { Header, SideBar, Button } from "../../components";
+
 const Home = ({ intl }) => {
-  const [isCreate, setCreateSidebar] = useState(false);
+  const [isSidebar, setSidebar] = useState(false);
+
   return (
-    <Container>
-      <Header />
-      <Body>
-        <Content>
-          <LinkButton
-            plus
-            onClick={() => setCreateSidebar(true)}
-            title={intl.formatMessage({ id: "HOME.ADD" })}
-          />
-          <UnitTable />
-        </Content>
-        <SideBar
-          title={intl.formatMessage({ id: "HOME.ADD_UNIT" })}
-          open={isCreate}
-          onClose={() => setCreateSidebar(false)}
-        >
-          <UnitForm />
-        </SideBar>
-      </Body>
-    </Container>
+    <UnitsProvider>
+      <Container>
+        <Header />
+        <Body>
+          <Content>
+            <UnitTable setSidebar={cond => setSidebar(cond)} />
+            <Button
+              width={10}
+              onClick={() => setSidebar(true)}
+              title={intl.formatMessage({ id: "HOME.ADD" })}
+            />
+          </Content>
+          <SideBar
+            open={isSidebar}
+            title={intl.formatMessage({ id: "HOME.MAIN_INFO" })}
+          >
+            <UnitForm setSidebar={cond => setSidebar(cond)} />
+          </SideBar>
+        </Body>
+      </Container>
+    </UnitsProvider>
   );
 };
 

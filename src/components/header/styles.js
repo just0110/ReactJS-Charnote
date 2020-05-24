@@ -15,3 +15,9 @@ export const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
+
+export const Right = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;

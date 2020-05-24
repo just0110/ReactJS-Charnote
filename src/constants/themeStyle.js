@@ -3,6 +3,9 @@ import { ThemeProvider } from "styled-components";
 
 const theme = {
   colors: {
+    white: "#fff",
+    black: "#000",
+
     main: "#8506A9",
     secondaryA: "#00A383",
     secondaryB: "#FF9A00",
@@ -15,9 +18,10 @@ const theme = {
     secondaryDarkA: "#006A55",
     secondaryDarkB: "#A66400",
 
-    gray: "#a5a5a5",
-    white: "#fff",
-    black: "#000",
+    gray: "#bbbbbb",
+    grayLight: "#ededed",
+    grayDark: "#aaaaaa",
+
     green: "#7ed321",
     orange: "#ff9900",
     red: "#fe4200",

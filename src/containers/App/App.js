@@ -4,13 +4,17 @@ import { Switch, Route, withRouter } from "react-router-dom";
 
 import Auth from "../Auth";
 import Home from "../Home";
+
 import { UserContext } from "../../contexts/user";
+import { LoadingContext } from "../../contexts/loading";
 
 const App = () => {
-  // todo check checkUserAuth
   const [userState, setUserState] = useContext(UserContext);
+  const [loading, setLoading] = useContext(LoadingContext);
 
+  // todo move to api call
   useEffect(() => {
+    setLoading(true);
     firebase.auth().onAuthStateChanged(res => {
       if (res != null) {
         const user = {
@@ -33,11 +37,14 @@ const App = () => {
         }));
       }
     });
-  }, [setUserState]);
+  }, [setLoading, setUserState]);
 
   const { currentUser, isLoggedIn } = userState;
-
   const component = !isLoggedIn && !currentUser ? Auth : Home;
+
+  if (isLoggedIn === null) {
+    return <div />;
+  }
 
   return (
     <Switch>

@@ -1,19 +1,19 @@
-import firebase from 'firebase'
+import firebase from "firebase";
 
 export const Firestore = (() => {
-  let firestore
+  let firestore;
 
   function createInstance() {
-    firestore = firebase.firestore()
-    return firestore
+    firestore = firebase.firestore();
+    return firestore;
   }
 
   return {
     getDB: function() {
       if (!firestore) {
-        firestore = createInstance()
+        firestore = createInstance();
       }
-      return firestore
-    },
-  }
-})()
+      return firestore;
+    }
+  };
+})();

@@ -38,8 +38,3 @@ export const Header = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-
-export const Close = styled.div`
-  height: 15px;
-  color: #323237;
-`;

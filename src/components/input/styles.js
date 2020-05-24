@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   margin-top: ${({ label }) => (label ? "20px" : "10px")};
-  width: 100%;
+  width: ${({ width }) => (width ? `${width}em` : "100%")};
   &:first-child {
     margin-top: 0;
   }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { injectIntl } from "react-intl";
 import { Redirect } from "react-router-dom";
 
@@ -6,20 +6,26 @@ import { Input, Button, Title, Subhead, LinkButton } from "../../components";
 import { Container, Image, Form, Buttons, ChangeLang } from "./styles";
 
 import { useAuth } from "../../hooks";
+import { LoadingContext } from "../../contexts/loading";
 
 // todo beautify errors
 
-const Auth = ({ intl, startLoading, endLoading, changeLanguage }) => {
+const Auth = ({ intl, changeLanguage }) => {
+  const [loading, setLoading] = useContext(LoadingContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [language, setLanguage] = useState("ua");
   const [isSignIn, setIsSignIn] = useState(true);
   const [isValidate, setValidate] = useState(false);
-  const [error, setError] = useState(false);
   const [isSuccess, setSuccess] = useState(false);
 
   const method = isSignIn ? "signin" : "signup";
-  const [{ response, isError }, doFetch] = useAuth(method);
+  const [{ response, error }, doFetch] = useAuth(method);
+
+  useEffect(() => {
+    setLoading(false);
+  }, [setLoading]);
 
   useEffect(() => {
     if (email.length && password.length) {
@@ -31,11 +37,11 @@ const Auth = ({ intl, startLoading, endLoading, changeLanguage }) => {
 
   // todo make form submit come true :D
   const handleSubmit = () => {
-    startLoading();
+    setLoading(true);
     doFetch({ email, password });
   };
 
-  // todo make selector with languages
+  // todo move to context
   const changeLang = () => {
     if (language === "ua") {
       setLanguage("ru");
@@ -47,26 +53,11 @@ const Auth = ({ intl, startLoading, endLoading, changeLanguage }) => {
   };
 
   useEffect(() => {
-    if (!response) {
-      return;
+    if (response) {
+      setSuccess(true);
     }
-    endLoading();
-    setSuccess(true);
-    // setCurrUserState(state => ({
-    //   ...state,
-    //   isLoggedIn: true,
-    //   isLoading: false,
-    //   currentUser: response,
-    // }))
-  }, [response]);
-
-  useEffect(() => {
-    if (!isError) {
-      return;
-    }
-    endLoading();
-    setError(isError);
-  }, [isError]);
+    setLoading(false);
+  }, [response, error, setLoading]);
 
   if (isSuccess) {
     return <Redirect to="/" />;
@@ -90,7 +81,7 @@ const Auth = ({ intl, startLoading, endLoading, changeLanguage }) => {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
-        {isError && <Subhead color="red">{error}</Subhead>}
+        {error && <Subhead color="red">{error}</Subhead>}
         <Buttons>
           <LinkButton
             title={intl.formatMessage({

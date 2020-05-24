@@ -8,8 +8,9 @@ import { Theme } from "./constants";
 import "./containers/App/normalize.css";
 import configureStore from "./redux/store";
 import { UserProvider } from "./contexts/user";
-import { Locales, Loading } from "./components";
+import { Loading, Locales } from "./components";
 import { App, unregister } from "./containers/App";
+import { LoadingProvider } from "./contexts/loading";
 import { initializeFirebase } from "./configs/firebase";
 
 initializeFirebase();
@@ -19,14 +20,16 @@ const target = document.querySelector("#root");
 render(
   <Provider store={store}>
     <Theme>
-      <Locales>
-        <BrowserRouter>
-          <UserProvider>
-            <App />
-            <Loading overlay={true} />
-          </UserProvider>
-        </BrowserRouter>
-      </Locales>
+      <LoadingProvider>
+        <Locales>
+          <BrowserRouter>
+            <UserProvider>
+              <App />
+              <Loading />
+            </UserProvider>
+          </BrowserRouter>
+        </Locales>
+      </LoadingProvider>
     </Theme>
   </Provider>,
   target

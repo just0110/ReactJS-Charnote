@@ -51,7 +51,7 @@ export const customStyles = {
     { theme, selectProps: { menuPlacement }, isDisabled }
   ) => ({
     ...base,
-    color: isDisabled ? theme.colors.gray : theme.colors.gray,
+    color: isDisabled ? theme.colors.gray : theme.colors.gray
   }),
   input: (base, { theme, isDisabled }) => ({
     ...base,

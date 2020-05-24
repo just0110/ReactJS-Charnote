@@ -1,0 +1,35 @@
+.activePage {
+    background-color: #5ED1BA;
+    border-radius: 4px;
+    min-width: 30px;
+    height: 30px;
+    display: flex;
+    padding: 0.3em;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    cursor: pointer;
+}
+
+.pages {
+    min-width: 30px;
+    height: 30px;
+    display: flex;
+    padding: 0.3em;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    cursor: pointer;
+}
+
+.arrows {
+    border: 2px solid #5ED1BA;
+    border-radius: 4px;
+    height: 30px;
+    padding: 0.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    cursor: pointer;
+}

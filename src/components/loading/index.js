@@ -1,14 +1,14 @@
-import React from "react";
-import propTypes from "prop-types";
-import { connect } from "react-redux";
+import React, { useContext } from "react";
 
-import { getLoadingStatus } from "../../redux/selectors";
 import { Overlay } from "./styles";
 import "./styles.css";
+import { LoadingContext } from "../../contexts/loading";
 
 // todo refactor to js styles + separate overlay feature
-const Loading = ({ isVisible, overlay }) =>
-  isVisible ? (
+const Loading = () => {
+  const [loading] = useContext(LoadingContext);
+
+  return loading ? (
     <Overlay>
       <div className="loader">
         <div className="boom" />
@@ -21,19 +21,6 @@ const Loading = ({ isVisible, overlay }) =>
       </div>
     </Overlay>
   ) : null;
-
-Loading.propTypes = {
-  isVisible: propTypes.bool,
-  overlay: propTypes.any
 };
 
-Loading.defaultProps = {
-  overlay: null,
-  isVisible: false
-};
-
-const mapStateToProps = state => ({
-  isVisible: getLoadingStatus(state)
-});
-
-export default connect(mapStateToProps, null)(Loading);
+export default Loading;
