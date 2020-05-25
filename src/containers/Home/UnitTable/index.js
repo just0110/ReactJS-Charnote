@@ -3,42 +3,37 @@ import { injectIntl } from "react-intl";
 import ReactPaginate from "react-paginate";
 
 import "./styles.css";
-import { Table, PaginationRow, Cell } from "./styles";
 import { Input, Head } from "../../../components";
-import { deleteUnit, getUnits } from "../../../api/units";
 import { UnitsContext } from "../../../contexts/units";
+import { deleteUnit, getUnits } from "../../../api/units";
 import { LoadingContext } from "../../../contexts/loading";
+import { Table, PaginationRow, Row, Cell } from "./styles";
 
-// todo design
+// todo separate logic and view
 const UnitTable = ({ intl, setSidebar }) => {
-  const [unitsState, setUnitsState] = useContext(UnitsContext);
-  const [loading, setLoading] = useContext(LoadingContext);
+  const [unitsState, dispatchUnits] = useContext(UnitsContext);
+  const [, setLoading] = useContext(LoadingContext);
 
   // for search and pagination on frontend
   const [units, setUnits] = useState([]);
 
   const [query, setQuery] = useState("");
-  const [page, setPage] = useState(0);
   const [paginatedData, setPaginatedData] = useState([]);
 
   // get Units
-  // todo move to reusable
+  // todo create actions handler
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
       const result = await getUnits();
 
-      setUnitsState(state => ({
-        ...state,
-        units: result
-      }));
-
+      dispatchUnits({ type: "SET_UNITS", payload: result });
       setUnits(result);
       setLoading(false);
     };
 
     fetchData();
-  }, [setLoading, setUnitsState]);
+  }, [dispatchUnits, setLoading]);
 
   // search handler
   useEffect(() => {
@@ -49,23 +44,20 @@ const UnitTable = ({ intl, setSidebar }) => {
       unit.firstName.toLowerCase().includes(query.toLowerCase())
     );
 
-    setPage(0);
+    dispatchUnits({ type: "SET_PAGE", payload: 0 });
     setUnits(result);
-  }, [query, unitsState, setPage]);
+  }, [query, unitsState.units, dispatchUnits]);
 
   // pagination handler
   useEffect(() => {
-    const from = page * 5;
+    const from = unitsState.page * 5;
     const result = units.slice(from, from + 5);
     setPaginatedData(result);
-  }, [page, units]);
+  }, [units, unitsState.page, dispatchUnits]);
 
   // chose current unit handler
   const setUnit = unit => {
-    setUnitsState(state => ({
-      ...state,
-      currentUnit: unit
-    }));
+    dispatchUnits({ type: "SET_UNIT", payload: unit });
     setSidebar(true);
   };
 
@@ -77,11 +69,7 @@ const UnitTable = ({ intl, setSidebar }) => {
       const res = await deleteUnit(unit.id);
       if (res.includes("ok")) {
         const result = await getUnits();
-
-        setUnitsState(state => ({
-          ...state,
-          units: result
-        }));
+        dispatchUnits({ type: "SET_UNITS", payload: result });
       }
     }
   };
@@ -98,7 +86,7 @@ const UnitTable = ({ intl, setSidebar }) => {
       {unitsState && (
         <Table>
           <tbody>
-            <tr>
+            <Row>
               <Cell header>{intl.formatMessage({ id: "HOME.INDEX" })}</Cell>
               <Cell header>
                 {intl.formatMessage({ id: "HOME.FIRST_NAME" })}
@@ -107,10 +95,10 @@ const UnitTable = ({ intl, setSidebar }) => {
               <Cell header>{intl.formatMessage({ id: "HOME.ROLE" })}</Cell>
               <Cell header>{intl.formatMessage({ id: "HOME.VOLUNTEER" })}</Cell>
               <Cell header />
-            </tr>
+            </Row>
             {paginatedData.map(unit => {
               return (
-                <tr key={unit.timestamp}>
+                <Row key={unit.timestamp}>
                   <Cell>{unit.timestamp}</Cell>
                   <Cell>
                     <Head
@@ -133,7 +121,7 @@ const UnitTable = ({ intl, setSidebar }) => {
                       {intl.formatMessage({ id: "HOME.DELETE" })}
                     </Head>
                   </Cell>
-                </tr>
+                </Row>
               );
             })}
           </tbody>
@@ -141,7 +129,7 @@ const UnitTable = ({ intl, setSidebar }) => {
       )}
       <PaginationRow>
         <ReactPaginate
-          forcePage={page}
+          forcePage={unitsState.page}
           previousLabel={intl.formatMessage({ id: "COMMON.PREV" })}
           nextLabel={intl.formatMessage({ id: "COMMON.NEXT" })}
           breakLabel={"..."}
@@ -150,7 +138,9 @@ const UnitTable = ({ intl, setSidebar }) => {
           pageLinkClassName={"pages"}
           marginPagesDisplayed={2}
           pageRangeDisplayed={3}
-          onPageChange={page => setPage(page.selected)}
+          onPageChange={page =>
+            dispatchUnits({ type: "SET_PAGE", payload: page.selected })
+          }
           previousClassName={"arrows"}
           nextClassName={"arrows"}
         />

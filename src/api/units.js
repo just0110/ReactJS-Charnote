@@ -1,7 +1,7 @@
 import { Firestore } from "../configs/firestore";
 
-// todo case insensitive
-// todo search + pagination
+// case insensitive
+// search + pagination
 export const getUnits = async () => {
   return await Firestore.getDB()
     .collection("units")

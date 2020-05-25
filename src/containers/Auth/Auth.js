@@ -8,10 +8,8 @@ import { Container, Image, Form, Buttons, ChangeLang } from "./styles";
 import { useAuth } from "../../hooks";
 import { LoadingContext } from "../../contexts/loading";
 
-// todo beautify errors
-
 const Auth = ({ intl, changeLanguage }) => {
-  const [loading, setLoading] = useContext(LoadingContext);
+  const [, setLoading] = useContext(LoadingContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +39,7 @@ const Auth = ({ intl, changeLanguage }) => {
     doFetch({ email, password });
   };
 
-  // todo move to context
+  // todo move to context + make selector
   const changeLang = () => {
     if (language === "ua") {
       setLanguage("ru");

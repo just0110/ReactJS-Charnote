@@ -10,9 +10,9 @@ import { LoadingContext } from "../../contexts/loading";
 
 const App = () => {
   const [userState, setUserState] = useContext(UserContext);
-  const [loading, setLoading] = useContext(LoadingContext);
+  const [, setLoading] = useContext(LoadingContext);
 
-  // todo move to api call
+  // todo move to saga api call
   useEffect(() => {
     setLoading(true);
     firebase.auth().onAuthStateChanged(res => {

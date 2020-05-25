@@ -10,8 +10,7 @@ import { LogoWrapper, HeaderWrapper, Right } from "./styles";
 const Header = ({ intl, changeLanguage }) => {
   const [language, setLanguage] = useState("ua");
 
-  // todo REUSABLE LOGIC! Create Context wrapper
-  // todo make selector with languages
+  // todo Create Context wrapper languages
   const changeLang = () => {
     if (language === "ua") {
       setLanguage("ru");

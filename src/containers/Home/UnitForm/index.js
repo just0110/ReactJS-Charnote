@@ -16,8 +16,8 @@ import { UnitsContext } from "../../../contexts/units";
 import { LoadingContext } from "../../../contexts/loading";
 
 const UnitForm = ({ intl, setSidebar }) => {
-  const [unitsState, setUnitsState] = useContext(UnitsContext);
-  const [loading, setLoading] = useContext(LoadingContext);
+  const [unitsState, dispatchUnits] = useContext(UnitsContext);
+  const [, setLoading] = useContext(LoadingContext);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -71,36 +71,28 @@ const UnitForm = ({ intl, setSidebar }) => {
       role: role.label
     };
 
-    // lol bad code :D
+    let res;
     if (unitsState.currentUnit) {
-      const res = await updateUnit(unitsState.currentUnit.id, unit);
-
-      if (res.includes("ok")) {
-        clearForm();
-        const result = await getUnits();
-
-        setUnitsState(state => ({
-          ...state,
-          units: result,
-          currentUnit: null
-        }));
-      }
+      res = await updateUnit(unitsState.currentUnit.id, unit);
     } else {
-      const res = await addUnit(unit);
-      if (res.includes("ok")) {
-        clearForm();
-        const result = await getUnits();
+      res = await addUnit(unit);
+    }
 
-        setUnitsState(state => ({
-          ...state,
+    if (res.includes("ok")) {
+      clearForm();
+      const result = await getUnits();
+
+      dispatchUnits({
+        type: "UPDATE_STATE",
+        payload: {
           units: result,
           currentUnit: null
-        }));
-      }
+        }
+      });
+      setSidebar(false);
     }
 
     setLoading(false);
-    setSidebar(false);
   };
 
   return (

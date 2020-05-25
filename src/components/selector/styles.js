@@ -66,7 +66,7 @@ export const customStyles = {
     ...base,
     width: `${width * 12}px` || "100%",
     fontSize: theme.fontSizes.sm,
-    color: isDisabled ? theme.colors.gray : theme.colors.gray
+    color: isDisabled ? theme.colors.gray : theme.colors.black
   }),
   menu: (_, { theme }) => ({
     position: "absolute",
@@ -92,7 +92,7 @@ export const customStyles = {
     fontSize: theme.fontSizes.sm,
     cursor: "pointer",
     whiteSpace: "nowrap",
-    backgroundColor: isFocused ? theme.colors.gray : "transparent",
+    backgroundColor: isFocused ? theme.colors.grayLight : "transparent",
     color: isSelected ? theme.colors.main : theme.colors.gray
   }),
   indicatorSeparator: () => ({})

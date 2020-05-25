@@ -19,11 +19,13 @@ export const PaginationRow = styled.div`
   }
 `;
 
+export const Row = styled.tr``;
+
 export const Cell = styled.td`
   font-weight: ${({ header }) => (header ? "500" : "none")};
   background: ${({ header, theme }) =>
     header ? theme.colors.grayLight : "transparent"};
-  min-height: 3em;
+  min-height: ${({ header }) => (header ? "4em" : "3em")};
   padding: 0.5em;
   align-items: center;
   justify-content: center;
