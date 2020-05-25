@@ -8,7 +8,7 @@
 
 # Available Scripts
 
-####To start the project, you can run:
+#### To start the project, you can run:
 
 1) Create <a href='https://console.firebase.google.com/'>Firebase</a> project.
 2) In <a href='https://console.firebase.google.com/'>Firebase</a> console setup Auth via Email and Password.
@@ -19,7 +19,8 @@
 
 
 
-####Also in the project directory, you can run:
+#### Also in the project directory, you can run:
+
 •  Delete .lock files and node-modules `yarn clean`
 
 •  Reinstall .lock files and node-modules `yarn scratch`
