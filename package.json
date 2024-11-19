@@ -11,7 +11,7 @@
     "scratch": "yarn clean && yarn"
   },
   "dependencies": {
-    "firebase": "^7.14.5",
+    "firebase": "^10.9.0",
     "lodash": "^4.17.15",
     "prop-types": "15.7.2",
     "react": "16.13.1",
